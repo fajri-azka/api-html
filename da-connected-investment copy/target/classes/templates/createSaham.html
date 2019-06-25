@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Registrasi Saham</title>
+</head>
+<body>
+<form action="#" th:action="@{/creates}" th:object="${dataSaham}" method="post">
+    <table>
+        <tr>
+            <td><label for="stockId">stockId</label></td>
+            <td><input type="text" th:field="*{stockId}" id="stockId" placeholder="stockId"></td>
+            <!--                <td><span  th:if="${#fields.}"-->
+        </tr>
+        <tr>
+            <td><label for="stockName">stockName</label></td>
+            <td><input type="text" th:field="*{stockName}" id="stockName" placeholder="stockName"></td>
+        </tr>
+        <tr>
+            <td><label for="stockPrice">stockPrice</label></td>
+            <td><input type="text" th:field="*{stockPrice}" id="stockPrice" placeholder="stockPrice"></td>
+        </tr>
+        <tr>
+            <td><label for="stockDailyReturn">stockDailyReturn</label></td>
+            <td><input type="text" th:field="*{stockDailyReturn}" id="stockDailyReturn" placeholder="stockDailyReturn"></td>
+        </tr>
+        <tr><td colspan="3"><input type="submit" value="Add saham"></td></tr>
+    </table>
+</form>
+</body>
+</html>

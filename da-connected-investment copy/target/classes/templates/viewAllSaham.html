@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home Page</title>
+</head>
+<body>
+<div th:switch="${sahams}">
+    <h2 th:case="null">No saham yet!</h2>
+    <div th:case="*">
+        <h2>List Saham Terdaftar</h2>
+        <table border="1">
+            <thead>
+            <tr>
+                <th>Id Saham</th>
+                <th>Nama Saham</th>
+                <th>Harga Saham</th>
+                <th>Deviden</th>
+
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="saham : ${sahams}">
+                <td th:text="${saham.stockId}"></td>
+                <td th:text="${saham.stockName}"></td>
+                <td th:text="${saham.stockPrice}"></td>
+                <td th:text="${saham.stockDailyReturn}"></td>
+                <!--                <td><a th:href="@{/view/{id}(id=${user.id})}">Detail</a></td>-->
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <p><a href="/create-saham">Add a new saham</a></p>
+    <p><a href="/home">Back to Home Page</a></p>
+</div>
+</body>
+</html>
