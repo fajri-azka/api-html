@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home Page</title>
+</head>
+<body>
+<div th:switch="${userRes}">
+    <h2 th:case="empty">No user yet!</h2>
+    <div th:case="*">
+        <h2>List User Terdaftar</h2>
+        <table border="1">
+            <thead>
+            <tr>
+                <th> User Id </th>
+                <th> User Name </th>
+                <th> Address </th>
+                <th> Money </th>
+                <th> User Stock Request </th>
+                <th> Edit </th>
+                <th> Delete </th>
+
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="user : ${userRes}">
+                <td th:text="${user.userId}"></td>
+                <td th:text="${user.fullName}"></td>
+                <td th:text="${user.userAddress}"></td>
+                <td th:text="${user.currentMoney}"></td>
+                <td th:text="${user.stockRequest}"></td>
+                <td><a th:href="|@{/update-user/{id}(id=${user.userId})}|">Edit</a></td>
+                <td><a th:href="|@{/delete-user/{id}(id=${user.userId})}|">Del</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <p><a href="/create-user">Add a new user</a></p>
+    <p><a href="/home-page">Back to Home Page</a></p>
+</div>
+</body>
+</html>

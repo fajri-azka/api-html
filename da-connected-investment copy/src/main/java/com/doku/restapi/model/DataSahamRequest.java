@@ -7,6 +7,6 @@ import lombok.Setter;
 public class DataSahamRequest {
     private String stockId;
     private String stockName;
-    private int stockPrice;
-    private double stockDailyReturn; //dalam %
+    private Integer stockPrice;
+    private Double stockDailyReturn; //dalam %
 }

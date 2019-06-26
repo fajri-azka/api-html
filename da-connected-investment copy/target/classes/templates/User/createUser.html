@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create User</title>
+</head>
+<body>
+    <form action="#" th:action="@{/create}" modelAttribute="userRequest" th:object="${userRequest}" method="post">
+        <table>
+            <tr>
+                <td><label for="userId">user Id</label></td>
+                <td><input type="number" th:field="*{userId}" id="userId" placeholder="user Id"></td>
+<!--                <td><span th:if="${#fields.hasErrors('userId')}" th:errors="*{userId}"></span></td>-->
+            </tr>
+            <tr>
+                <td><label for="fullName">full Name</label></td>
+                <td><input type="text" th:field="*{fullName}" id="fullName" placeholder="full Name"></td>
+                <td><span th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}"></span></td>
+            </tr>
+            <tr>
+                <td><label for="userAddress">user Address</label></td>
+                <td><input type="text" th:field="*{userAddress}" id="userAddress" placeholder="user Address"></td>
+                <td><span th:if="${#fields.hasErrors('userAddress')}" th:errors="*{userAddress}"></span></td>
+            </tr>
+            <tr>
+                <td><label for="currentMoney">current Money</label></td>
+                <td><input type="number" th:field="*{currentMoney}" id="currentMoney" placeholder="current Money"></td>
+            </tr>
+            <tr>
+                <td><label for="stockRequest">stock Request</label></td>
+                <td><input type="number" th:field="*{stockRequest}" id="stockRequest" placeholder="stock Request"></td>
+            </tr>
+            <tr><td colspan="3"><input type="submit" value="Add User"></td></tr>
+        </table>
+    </form>
+<!--    <p><a href="/home-page">Back to Home Page</a></p>-->
+</body>
+</html>

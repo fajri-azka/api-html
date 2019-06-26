@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create User</title>
+</head>
+<body>
+<form action="#" th:action="@{/createtransaction}" th:object="${dataSahamRequestResponse}" method="post">
+    <table>
+        <tr>
+            <td><label for="userId">user Id</label></td>
+            <td><input type="number" th:field="*{userId}" id="userId" placeholder="user Id"></td>
+        </tr>
+        <tr>
+            <td><label for="fullName">full Name</label></td>
+            <td><input type="text" th:field="*{fullName}" id="fullName" placeholder="full Name"></td>
+        </tr>
+        <tr>
+            <td><label for="stockId">user Id</label></td>
+            <td><input type="number" th:field="*{stockId}" id="stockId" placeholder="stock Id"></td>
+        </tr>
+        <tr>
+            <td><label for="stockName">stock Id</label></td>
+            <td><input type="text" th:field="*{stockName}" id="stockName" placeholder="stock Name"></td>
+        </tr>
+        <tr>
+            <td><label for="stockSheetRequest">user Id</label></td>
+            <td><input type="number" th:field="*{stockSheetRequest}" id="stockSheetRequest" placeholder="stock Sheet Request"></td>
+        </tr>
+        <tr>
+            <td><label for="stockPrice">stock Price</label></td>
+            <td><input type="text" th:field="*{stockPrice}" id="stockPrice" placeholder="stock Price"></td>
+        </tr>
+        <tr>
+            <td><label for="stockPriceTotal">stock Price Total</label></td>
+            <td><input type="text" th:field="*{stockPriceTotal}" id="stockPriceTotal" placeholder="stock Price Total"></td>
+        </tr>
+        <tr><td colspan="3"><input type="submit" value="Process? Klik di sini"></td></tr>
+    </table>
+</form>
+<!--<p><a href="/home-page">Back to Home Page</a></p>&ndash;&gt;-->
+</body>
+</html>

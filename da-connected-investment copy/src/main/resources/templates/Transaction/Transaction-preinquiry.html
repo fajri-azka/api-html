@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create User</title>
+</head>
+<body>
+<form action="#" th:action="@{/createtransaction}" th:object="${dataSahamRequestResponse}" method="post">
+    <table>
+        <tr>
+            <td><label for="userId">user Id</label></td>
+            <td><input type="number" th:field="*{userId}" id="userId" placeholder="user Id"></td>
+        </tr>
+        <tr>
+            <td><label for="stockId">stock Id</label></td>
+            <td><input type="text" th:field="*{stockId}" id="stockId" placeholder="stock Id"></td>
+        </tr>
+        <tr>
+        <tr><td colspan="3"><input type="submit" value="Cek Pembelian saham"></td></tr>
+    </table>
+</form>
+<!--<p><a href="/home-page">Back to Home Page</a></p>&ndash;&gt;-->
+</body>
+</html>

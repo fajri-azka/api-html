@@ -1,9 +1,6 @@
 package com.doku.restapi.controller;
 
-import com.doku.restapi.model.DataSaham;
-import com.doku.restapi.model.DataSahamRequest;
-import com.doku.restapi.model.UserRequest;
-import com.doku.restapi.model.UserRequestResponse;
+import com.doku.restapi.model.*;
 import com.doku.restapi.services.TransactionServices;
 import com.doku.restapi.services.UserServices;
 import io.swagger.annotations.Api;
@@ -12,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -29,98 +28,128 @@ public class AllController {
     @Autowired
     TransactionServices transactionServices;
 
-    @GetMapping("/home")
-    public String showHomePageForm(){
+    @GetMapping("/welcome")
+    public String showWelcomePageForm(){
         return "homePage";
     }
 
-    @GetMapping("/create-user")
-    public String showCreateForm(@Valid UserRequest userRequest, Model model){
+    @GetMapping("/home-page")
+    public String showHomePageForm(){
+        return "homePageUpdate";
+    }
+
+
+    // USER //
+
+
+    @GetMapping("/create-user")             // CREATE USER
+    public String showCreateForm(UserRequest userRequest, Model model){
         model.addAttribute("userRequest", userRequest);
-        return "createUser";
+        return "User/createUser";
     }
 
     @PostMapping("/create")
-    public String createUserForm(@Valid UserRequest userRequest, BindingResult result, Model model){
+    public String createUserForm(@Validated @ModelAttribute("userRequest") UserRequest userRequest, BindingResult result, Model model){
         if(result.hasErrors()){
-            return "createUser";
+            return "User/createUser";
         }
 
         userServices.createUser(userRequest);
-        model.addAttribute("users", userServices.getAllUser());
+        model.addAttribute("userRes", userServices.getAllUser());
         log.info(userServices.getAllUser().toString());
-        return "viewAllUser";
+        return "User/viewAllUser";
     }
 
-    @GetMapping("/update-user/{userid}")
-    public String showUserByIdForm(@Valid @PathVariable("userid") String userid, Model model){
-        UserRequestResponse RequestResponse = userServices.getUser(userid);
-        model.addAttribute("userRequest", RequestResponse);
-        return "editUser";
+    @GetMapping("/update-user/{userId}")    // UPDATE USER
+    public String showUserByIdForm(@Valid @PathVariable("userId") String userId, Model model){
+        UserRequestResponse requestResponse = userServices.getUser(userId);
+        model.addAttribute("userRequest", requestResponse);
+        return "User/editUser";
     }
 
-    @PostMapping("/update/{userid}")
-    public String updateUserForm(@Valid @PathVariable("userid") String userid, UserRequestResponse userRequestResponse, BindingResult result, Model model){
+    @PostMapping("/update/{userId}")
+    public String updateUserForm(@Valid @PathVariable("userId") String userId, UserRequestResponse requestResponse, BindingResult result, Model model){
         if(result.hasErrors()){
-            return "editUser";
+            return "User/editUser";
         }
 
-        userServices.updateUser(userid, userRequestResponse);
-        model.addAttribute("userRequest", userServices.getAllUser());
+        userServices.updateUser(userId, requestResponse);
+        model.addAttribute("userRes", userServices.getAllUser());
         log.info(userServices.getAllUser().toString());
-        return "viewAllUser";
+        return "User/viewAllUser";
     }
 
-
-    @GetMapping("/delete-user/{userid}")
-    public String deleteUserByIdForm(@PathVariable("userid") String userid, Model model){
-        UserRequestResponse RequestResponse = userServices.deleteUser(userid);
-        model.addAttribute("userRequest", RequestResponse);
-        return "viewAllUser";
+    @GetMapping("/delete-user/{userId}")    // DELETE USER
+    public String deleteUserByIdForm(@PathVariable("userId") String userId, Model model){
+        userServices.deleteUser(userId);
+        model.addAttribute("userRes", userServices.getAllUser());
+        return "User/viewAllUser";
     }
 
-    @GetMapping("/view-all-user")
+    @GetMapping("/view-all-user")           // VIEW ALL USER
     public String showAllUserForm(Model model) {
-        model.addAttribute("users", userServices.getAllUser());
+        model.addAttribute("userRes", userServices.getAllUser());
         log.info(userServices.getAllUser().toString());
-        return "viewAllUser";
+        return "User/viewAllUser";
     }
 
 
+    // SAHAM //
 
 
-
-    @GetMapping("/create-saham")
-    public String showCreateSahamForm(@Valid DataSaham dataSaham, Model model){
+    @GetMapping("/create-saham")            // CREATE SAHAM
+    public String showCreateSahamForm(DataSaham dataSaham, Model model){
         model.addAttribute("dataSaham", dataSaham);
-        return "createSaham";
+        return "Saham/createSaham";
     }
 
     @PostMapping("/creates")
     public String createSahamForm(@Valid DataSaham dataSaham, BindingResult result, Model model){
         if(result.hasErrors()){
-            return "createSaham";
+            return "Saham/createSaham";
         }
 
         transactionServices.createStock(dataSaham);
         model.addAttribute("sahams", transactionServices.getAllStock());
         log.info(transactionServices.getAllStock().toString());
-        return "viewAllSaham";
+        return "Saham/viewAllSaham";
     }
 
-    @GetMapping("/view-saham/{sahamid}")
+
+    @GetMapping("/view-saham/{sahamid}")    // VIEW SAHAM
     public String showSahamByIdForm(@PathVariable("sahamid") String sahamid, Model model){
         DataSahamRequest dataSahamRequest = transactionServices.getStock(sahamid);
-        model.addAttribute("userRequest", dataSahamRequest);
-        return "editUser";
+        model.addAttribute("dataSaham", dataSahamRequest);
+        return "Saham/viewAllSaham";
     }
 
 
-    @GetMapping("/view-all-saham")
+    @GetMapping("/view-all-saham")          // VIEW ALL SAHAM
     public String showAllsahamForm(@Valid DataSaham dataSaham, BindingResult result, Model model) {
         model.addAttribute("sahams", transactionServices.getAllStock());
         log.info(transactionServices.getAllStock().toString());
-        return "viewAllSaham";
+        return "Saham/viewAllSaham";
+    }
+
+
+    // TRANSACTION //
+
+    @GetMapping("/create-transaction")      // CREATE TRANSACTION
+    public String showCreateSahamForm(@Valid  DataSahamRequestResponse dataSahamRequestResponse, Model model){
+        model.addAttribute("dataSahamRequestResponse", dataSahamRequestResponse);
+        return "Transaction/Transaction-preinquiry";
+    }
+
+    @PostMapping("/createtransaction")
+    public String createSahamForm(@Valid DataSahamRequestResponse dataSahamRequestResponse, BindingResult result, Model model){
+        if(result.hasErrors()){
+            return "Transaction/Transaction-preinquiry";
+        }
+
+        transactionServices.createTransaction(dataSahamRequestResponse);
+        model.addAttribute("dataSahamRequestResponse", dataSahamRequestResponse);
+        log.info(dataSahamRequestResponse.toString());
+        return "Transaction/Transaction-inquiry";
     }
 
 
